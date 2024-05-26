@@ -40,7 +40,7 @@ conda activate nixtlaEnvDeep
 pip install datasetsforecast
 conda deactivate
 
-cd /d S:\Python\projects\M4\code
+cd /d S:\Python\projects\exploration\code
 conda env export > environment_nixtlaEnvDeep.yml -n nixtlaEnvDeep 
 
 conda activate nixtlaEnvDeep 

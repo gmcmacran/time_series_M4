@@ -5,8 +5,8 @@ from functools import partial, reduce
 import numpy as np
 import pandas as pd
 from neuralforecast.losses.numpy import smape
-from plotnine import (aes, coord_flip, geom_boxplot, geom_col, geom_hline, ggplot, ggsave,
-                      labs, scale_y_continuous)
+from plotnine import (aes, coord_flip, geom_boxplot, geom_col, geom_hline,
+                      ggplot, ggsave, labs, scale_y_continuous)
 
 # %%
 os.chdir("S:\Python\projects\exploration")
@@ -69,6 +69,7 @@ def graph_one_dataset(dataset, metric_df):
     )
     return graph
 
+
 ################################################
 # Summarize
 ################################################
@@ -115,16 +116,12 @@ ggsave(
 graph
 
 # %%
-temp = metric_df.groupby('model', as_index=False)['smape'].mean()
+temp = metric_df.groupby("model", as_index=False)["smape"].mean()
 graph = (
     ggplot(temp, aes(x="model", y="smape"))
     + geom_col(alpha=0.40)
-    + labs(
-        title="Model Performance",
-        x="Model",
-        y="Average Smape"
-    )
-    + geom_hline(yintercept = .11374)
+    + labs(title="Model Performance", x="Model", y="Average Smape")
+    + geom_hline(yintercept=0.11374)
     + coord_flip()
 )
 ggsave(

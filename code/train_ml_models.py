@@ -294,6 +294,7 @@ def wrapper(dataset):
 
 # %%
 datasets = ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
+datasets = ["monthly", "quarterly", "yearly"]
 modelPredictions = list(map(wrapper, datasets))
 modelPredictions = pd.concat(modelPredictions)
 

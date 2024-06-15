@@ -87,12 +87,12 @@ def predict_neuralforecast_models(train, test, dataset):
 
     num_samples = 50
     backend = "ray"
-    search_alg = HyperOptSearch()
+    search_alg = HyperOptSearch(random_state_seed=42)
 
     base_config = {
         "learning_rate": tune.loguniform(1e-4, 1e-2),
         "input_size": tune.randint(int(h / 2), 3 * h),
-        "max_steps": tune.randint(100, 1000),
+        "max_steps": tune.randint(500, 2000),
         "batch_size": tune.choice([32, 64, 128]),
         "random_seed": 42,
         "scaler_type": tune.choice(
@@ -125,11 +125,21 @@ def predict_neuralforecast_models(train, test, dataset):
         "backend": backend,
     }
 
-    config_01 = {
-        "windows_batch_size": tune.choice([128, 256, 512, 1024]),
-        "dropout_prob_theta": tune.uniform(0, 0.50),
-        **base_config,
-    }
+    # For some reason, inf and -inf are returned for particular ranges of dropout_prob_theta
+    # Setting dropout_prob_theta to avoid inf and -inf.
+    if dataset in ["daily", "quarterly"]:
+        config_01 = {
+            "windows_batch_size": tune.choice([32, 64, 128]),
+            "dropout_prob_theta": tune.uniform(0, 0.05),
+            **base_config,
+        }
+    else:
+        config_01 = {
+            "windows_batch_size": tune.choice([32, 64, 128]),
+            "dropout_prob_theta": tune.uniform(0, 0.20),
+            **base_config,
+        }
+
     params_01 = {
         "h": h,
         "num_samples": num_samples,
@@ -140,7 +150,7 @@ def predict_neuralforecast_models(train, test, dataset):
     }
 
     config_02 = {
-        "dropout_prob_theta": tune.uniform(0, 0.50),
+        "dropout_prob_theta": tune.uniform(0, 0.20),
         "n_pool_kernel_size": tune.choice(
             [[2, 2, 1], 3 * [1], 3 * [2], 3 * [4], [8, 4, 1], [16, 8, 1]]
         ),
@@ -154,7 +164,7 @@ def predict_neuralforecast_models(train, test, dataset):
                 [1, 1, 1],
             ]
         ),
-        "windows_batch_size": tune.choice([128, 256, 512, 1024]),
+        "windows_batch_size": tune.choice([32, 64, 128]),
         **base_config,
     }
     params_02 = {
@@ -222,6 +232,9 @@ def wrapper(dataset):
 datasets = ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
 model_predictions = list(map(wrapper, datasets))
 model_predictions = pd.concat(model_predictions)
+
+# %%
+np.all(np.isfinite(model_predictions.y_hat))
 
 
 # %%

@@ -1,6 +1,6 @@
 # %%
 import os
-from functools import partial, reduce
+from functools import reduce
 
 import numpy as np
 import pandas as pd
@@ -44,32 +44,6 @@ def calc_smape(df, Y="y", YHAT="y_hat"):
     return out
 
 
-def graph_one_dataset(dataset, metric_df):
-    metric_df = metric_df.loc[metric_df.data == dataset]
-
-    fn = f"graphs\\{dataset}_all_models.png"
-    myTitle = dataset.title()
-
-    graph = (
-        ggplot(metric_df, aes(x="model", y="smape"))
-        + geom_boxplot(alpha=0.40)
-        + labs(
-            title=myTitle,
-            x="Model",
-            y="Symmetric Mean Absolute Percentage Error",
-        )
-        + scale_y_continuous(breaks=np.arange(0, 2.1, 0.2))
-        + coord_flip(ylim=[0, 2])
-    )
-    ggsave(
-        graph,
-        os.path.join(os.getcwd(), fn),
-        width=10,
-        height=10,
-    )
-    return graph
-
-
 ################################################
 # Summarize
 ################################################
@@ -87,6 +61,9 @@ modelPredictions.model.nunique() == 7
 # %%
 modelPredictions.dropna().shape[0] == modelPredictions.shape[0]
 
+# %%
+np.all(np.isfinite(modelPredictions.y_hat))
+
 
 # %%
 metric_df = modelPredictions.groupby(
@@ -94,6 +71,10 @@ metric_df = modelPredictions.groupby(
 ).apply(calc_smape)
 metric_df.columns.values[3] = "smape"
 metric_df = metric_df.sort_values(by=["data", "model", "unique_id"])
+
+metric_df['data'] = metric_df['data'].astype('category')
+metric_df['data'] = metric_df['data'].cat.reorder_categories(["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"])
+
 
 # %%
 graph = (
@@ -122,6 +103,7 @@ graph = (
     + geom_col(alpha=0.40)
     + labs(title="Model Performance", x="Model", y="Average Smape")
     + geom_hline(yintercept=0.11374)
+    + scale_y_continuous(breaks=np.arange(0, .16, 0.02))
     + coord_flip()
 )
 ggsave(
@@ -132,28 +114,28 @@ ggsave(
 )
 graph
 
-# %%
-graph_one_dataset = partial(graph_one_dataset, metric_df=metric_df)
-list(
-    map(
-        graph_one_dataset,
-        ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"],
-    )
-)
 
 # %%
 categories = ["baseline", "ml", "deep_learning"]
 computeDF = map(load_compute_time, categories)
 computeDF = reduce(lambda x, y: pd.concat([x, y]), computeDF)
+
+computeDF['run_time'] = computeDF.run_time / (60)
+computeDF['run_time'] = computeDF.run_time / (60)
+
+computeDF['dataset'] = computeDF['dataset'].astype('category')
+computeDF['dataset'] = computeDF['dataset'].cat.reorder_categories(["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"])
+
 computeDF.head()
 
 # %%
 graph = (
     ggplot(computeDF, aes(x="dataset", y="run_time", fill="category"))
     + geom_col(alpha=0.40, position="dodge")
+    + scale_y_continuous(breaks=np.arange(0, 12, 2))
     + labs(
         x="Data",
-        y="Compute Time",
+        y="Compute Time (Hours)",
     )
 )
 ggsave(

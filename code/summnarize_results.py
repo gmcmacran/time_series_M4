@@ -72,8 +72,10 @@ metric_df = modelPredictions.groupby(
 metric_df.columns.values[3] = "smape"
 metric_df = metric_df.sort_values(by=["data", "model", "unique_id"])
 
-metric_df['data'] = metric_df['data'].astype('category')
-metric_df['data'] = metric_df['data'].cat.reorder_categories(["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"])
+metric_df["data"] = metric_df["data"].astype("category")
+metric_df["data"] = metric_df["data"].cat.reorder_categories(
+    ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
+)
 
 
 # %%
@@ -103,7 +105,7 @@ graph = (
     + geom_col(alpha=0.40)
     + labs(title="Model Performance", x="Model", y="Average Smape")
     + geom_hline(yintercept=0.11374)
-    + scale_y_continuous(breaks=np.arange(0, .16, 0.02))
+    + scale_y_continuous(breaks=np.arange(0, 0.16, 0.02))
     + coord_flip()
 )
 ggsave(
@@ -120,11 +122,13 @@ categories = ["baseline", "ml", "deep_learning"]
 computeDF = map(load_compute_time, categories)
 computeDF = reduce(lambda x, y: pd.concat([x, y]), computeDF)
 
-computeDF['run_time'] = computeDF.run_time / (60)
-computeDF['run_time'] = computeDF.run_time / (60)
+computeDF["run_time"] = computeDF.run_time / (60)
+computeDF["run_time"] = computeDF.run_time / (60)
 
-computeDF['dataset'] = computeDF['dataset'].astype('category')
-computeDF['dataset'] = computeDF['dataset'].cat.reorder_categories(["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"])
+computeDF["dataset"] = computeDF["dataset"].astype("category")
+computeDF["dataset"] = computeDF["dataset"].cat.reorder_categories(
+    ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
+)
 
 computeDF.head()
 

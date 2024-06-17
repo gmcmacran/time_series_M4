@@ -116,6 +116,9 @@ ggsave(
 )
 graph
 
+# %%
+temp
+
 
 # %%
 categories = ["baseline", "ml", "deep_learning"]

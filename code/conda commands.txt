@@ -1,0 +1,49 @@
+################
+# Conda enviroment for project
+#################
+
+conda create -n nixtlaEnv pytorch pytorch-cuda neuralforecast  -c pytorch -c nvidia -c conda-forge
+conda install statsforecast  -n nixtlaEnv -c conda-forge
+conda install mlforecast  -n nixtlaEnv -c conda-forge
+conda install hyperopt  -n nixtlaEnv -c conda-forge
+conda install plotnine -n nixtlaEnv  -c conda-forge
+conda install ipykernel -n nixtlaEnv -c conda-forge
+conda install black -n nixtlaEnv -c conda-forge
+conda install isort -n nixtlaEnv -c conda-forge
+
+conda activate nixtlaEnv 
+pip install datasetsforecast
+pip install lightgbm 
+conda deactivate
+
+cd /d S:\Python\projects\exploration\code
+conda env export > environment_nixtlaEnv.yml -n nixtlaEnv 
+
+conda activate nixtlaEnv 
+black .
+isort .
+conda deactivate
+
+
+################
+# Conda enviroment for project
+#################
+
+conda create -n nixtlaEnvDeep pytorch pytorch-cuda neuralforecast  -c pytorch -c nvidia -c conda-forge
+conda install hyperopt  -n nixtlaEnvDeep -c conda-forge
+conda install plotnine -n nixtlaEnvDeep  -c conda-forge
+conda install ipykernel -n nixtlaEnvDeep -c conda-forge
+conda install black -n nixtlaEnvDeep -c conda-forge
+conda install isort -n nixtlaEnvDeep -c conda-forge
+
+conda activate nixtlaEnvDeep 
+pip install datasetsforecast
+conda deactivate
+
+cd /d S:\Python\projects\exploration\code
+conda env export > environment_nixtlaEnvDeep.yml -n nixtlaEnvDeep 
+
+conda activate nixtlaEnvDeep 
+black .
+isort .
+conda deactivate

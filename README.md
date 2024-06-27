@@ -35,9 +35,11 @@ between hourly, daily, weekly, monthly, quarterly, and yearly data.
 Within each dataset, series come from different domains including
 econmoics, finance, demographics, and finance.
 
-Data: \* Spyros Makridaki’s
-[website](https://forecasters.org/resources/time-series-data/) \*
-[Github](https://github.com/Mcompetitions)
+Data:
+
+- Spyros Makridaki’s
+  [website](https://forecasters.org/resources/time-series-data/)
+- [Github](https://github.com/Mcompetitions)
 
 ### Cleaning Process
 
@@ -134,6 +136,8 @@ approaches. NHits, NBeats beat boosting and ridge regression by a wide
 margin. The TFT model matched performance.
 
 # Code Overview
+
+Run order:
 
 1: prep_data 2: train models (train_baseline_models,
 train_deep_lerning_models, train_ml_models) 3: summarize_results

@@ -50,7 +50,7 @@ Second, series Y3820 ends in the future. I am not the only person to
 notice
 [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/).
 I was unable to find clear documentation on how participates handled
-these series. It is possible they simpley accepted these series as is.
+these series. It is possible they simply accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I
 leverage Nixtla’s dataset

@@ -38,7 +38,7 @@ Data:
 -   [Github](https://github.com/Mcompetitions)
 
 ### Cleaning Process
-Pulling the raw data from the competition page lead to challenging data quality issues. First, series Y13190 contained 835 years worth of data meaning data collection started before the printing press was created. Second, series Y3820 ends in the future. I am not the only person to notice [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/). I was unable to find clear documentation on how participates handled these series. It is possible they simpley accepted these series as is.
+Pulling the raw data from the competition page lead to challenging data quality issues. First, series Y13190 contained 835 years worth of data meaning data collection started before the printing press was created. Second, series Y3820 ends in the future. I am not the only person to notice [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/). I was unable to find clear documentation on how participates handled these series. It is possible they simply accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I leverage Nixtla's dataset [package](https://nixtlaverse.nixtla.io/datasetsforecast/index.html) which includes a cleaned version of data. I only confirm each dataset has the correct number of series.
 

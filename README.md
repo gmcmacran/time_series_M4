@@ -48,17 +48,17 @@ data meaning data collection started in year 1,182 at the latest.
 Second, series Y3820 ends in the future. I am not the only person to
 notice
 [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/).
-I was unable to find clear documentation how participates handeled these
+I was unable to find clear documentation how participates handled these
 series. It is possible they simple accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I
-leverage nixtla’s dataset
+leverage Nixtla’s dataset
 [package](https://nixtlaverse.nixtla.io/datasetsforecast/index.html)
-which includes a cleaned version of data. The only check I do is to
-confirm each dataset has the correct number of series.
+which includes a cleaned version of data. The only check I do confirming
+each dataset has the correct number of series.
 
 - Step 1: Download data.
-- Step 2: Count number of series.
+- Step 2: Count the number of series.
 - Step 3: Write data.
 
 ### Data Exploration
@@ -90,7 +90,7 @@ provided as well.
 
 Neural forecast is a collection of 18 different deep learning models
 specifically focused on time series analysis. They span many categories
-including recurrent neural networks, multi layer perceptrons,
+including recurrent neural networks, multilayer perceptron,
 transformers, and convolutional neural networks. All models are
 implemented with pytorch lightning meaning all models can run on a CPU,
 a GPU, or multiple GPUs.
@@ -98,7 +98,7 @@ a GPU, or multiple GPUs.
 ### ML Forecast
 
 ML forecast does not provide new models directly. Instead it provides
-functions to take the standadrized time series data and shape into
+functions to take the standardized time series data and shape into
 tabular data. From there, standard machine learning models are used.
 These models can come from sci-kit learn, xgboost, or any other library
 that follows a sci-kit learn interface.

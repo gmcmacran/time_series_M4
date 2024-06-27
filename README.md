@@ -18,8 +18,9 @@ the 10th place submission.
 
 # Data Overview
 
-Beginning in 1982, Spyros Makridakis (the M in M4) runs time series
-competitions that define the state of the art in time series modeling.
+Beginning in 1982, Spyros Makridakis (the M in M4) has been running time
+series competitions that define the state of the art in time series
+modeling.
 
 - M1: 111 time series in 1982
 - M2: 29 series in 1993
@@ -42,20 +43,20 @@ Data:
 
 ### Cleaning Process
 
-Pulling the raw data from the competition page lead to some challenging
-data shaping issues. First, series Y13190 contained 835 years worth of
-data meaning data collection started in year 1,182 at the latest.
+Pulling the raw data from the competition page lead to challenging data
+quality issues. First, series Y13190 contained 835 years worth of data
+meaning data collection started before the printing press was created.
 Second, series Y3820 ends in the future. I am not the only person to
 notice
 [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/).
-I was unable to find clear documentation how participates handled these
-series. It is possible they simple accepted these series as is.
+I was unable to find clear documentation on how participates handled
+these series. It is possible they simpley accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I
 leverage Nixtla’s dataset
 [package](https://nixtlaverse.nixtla.io/datasetsforecast/index.html)
-which includes a cleaned version of data. The only check I do confirming
-each dataset has the correct number of series.
+which includes a cleaned version of data. I only confirm each dataset
+has the correct number of series.
 
 - Step 1: Download data.
 - Step 2: Count the number of series.
@@ -63,7 +64,7 @@ each dataset has the correct number of series.
 
 ### Data Exploration
 
-Longer frequency data (i.e. yearly) tend to be shorter series than short
+Long frequency data (i.e. yearly) tend to be shorter series than short
 frequency series (i.e. daily). Within each dataset, the length of the
 series is inconsistent.
 
@@ -100,8 +101,8 @@ a GPU, or multiple GPUs.
 ML forecast does not provide new models directly. Instead it provides
 functions to take the standardized time series data and shape into
 tabular data. From there, standard machine learning models are used.
-These models can come from sci-kit learn, xgboost, or any other library
-that follows a sci-kit learn interface.
+Models can come from sci-kit learn, xgboost, or any other library that
+follows a sci-kit learn interface.
 
 # Model Summary
 
@@ -120,19 +121,21 @@ and the seasonal naive model.
 
 ### ML Models
 
-Ridge regression and boosting with lightgbm are the machine learning
-models used here. Their parameters were tuned using a time based cross
-validation. 50 different combinations of hyper parameters were done.
-Interestingly, boosting did no better than ridge regression. Roughly,
-training a single boosted model takes longer than training 50 ridge
-regression models.
+Ridge regression with sci-kit learn and boosting with lightgbm are the
+machine learning models used here. Their parameters were tuned using a
+time based cross validation. 50 different combinations of hyper
+parameters were done. Interestingly, boosting did no better than ridge
+regression.
+
+Roughly, training a single boosted model takes longer than training 50
+ridge regression models.
 
 ### Deep Learning Models
 
-All deep learning models are tuned on 50 iterations of cross validation
-each. Overall, deep learning is superior to machine learning based
-approaches for these data. NBeats and NHits beat boosting and ridge
-regression by a wide margin. The TFT model matches performance.
+All deep learning models are tuned on 50 sets of parameters. Overall,
+deep learning is superior to machine learning based approaches for these
+data. NBeats and NHits beat boosting and ridge regression by a wide
+margin. The TFT model matches performance.
 
 # Code Overview
 

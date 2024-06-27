@@ -18,8 +18,8 @@ the 10th place submission.
 
 # Data Overview
 
-Beginning in 1982, Spyros Makridakis (the M in M4) ran time series
-competions that define the state of the art in time series modeling.
+Beginning in 1982, Spyros Makridakis (the M in M4) runs time series
+competitions that define the state of the art in time series modeling.
 
 - M1: 111 time series in 1982
 - M2: 29 series in 1993

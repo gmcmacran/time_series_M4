@@ -27,6 +27,7 @@ def load_predictions(fn):
     modelPredictions = pd.read_csv(fn)
     return modelPredictions
 
+
 def calc_smape(df, Y="y", YHAT="y_hat"):
     out = smape(df[Y], df[YHAT])
     return out

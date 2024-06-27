@@ -19,8 +19,7 @@ import pandas as pd
 from IPython.utils import io
 from mlforecast.auto import AutoLightGBM, AutoMLForecast, AutoRidge
 from mlforecast.lag_transforms import ExpandingMean, RollingMean
-from mlforecast.target_transforms import (Differences, LocalBoxCox,
-                                          LocalStandardScaler)
+from mlforecast.target_transforms import Differences, LocalBoxCox, LocalStandardScaler
 
 # %%
 os.chdir("S:\Python\projects\exploration")

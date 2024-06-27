@@ -15,8 +15,15 @@ from functools import partial
 import numpy as np
 import pandas as pd
 from neuralforecast.losses.numpy import smape
-from plotnine import (aes, coord_flip, geom_boxplot, ggplot, ggsave, labs,
-                      scale_y_continuous)
+from plotnine import (
+    aes,
+    coord_flip,
+    geom_boxplot,
+    ggplot,
+    ggsave,
+    labs,
+    scale_y_continuous,
+)
 from statsforecast import StatsForecast
 from statsforecast.models import AutoARIMA, AutoCES, AutoETS, SeasonalNaive
 

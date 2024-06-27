@@ -67,56 +67,14 @@ is inconsistent.
 
 ![](README_files/figure-commonmark/cell-3-output-1.png)
 
-Hourly and yearly contain a few high average value series.
+There is some variability in average value of series in most datasets.
 
 ![](README_files/figure-commonmark/cell-4-output-1.png)
 
-Ignoring the few extreme series, there is some variability in average
-value of series in most datasets.
+Within each dataset, there is some variability in standard deviations of
+series.
 
 ![](README_files/figure-commonmark/cell-5-output-1.png)
-
-A few series have large standard deviation.
-
-![](README_files/figure-commonmark/cell-6-output-1.png)
-
-Removing a few extreme series, there is some variability in standard
-deviations of series.
-
-![](README_files/figure-commonmark/cell-7-output-1.png)
-
-# Model Summary
-
-### Comparison with Other Participates
-
-The first vertical line is 1st place. The second vertical line is 7th
-place. Out of 61 submissions, my best model beat the 7th place model in
-the M4 competition.
-
-![](README_files/figure-commonmark/cell-8-output-1.png)
-
-### Naive Models
-
-Within the competion, the naive model took 41st. The seasonal naive
-model took 37th. I was able to reproduce these results.
-
-### ML Models
-
-AutoRidge and AutoLightGBM are the machine learning models used here.
-Their parameters were tuned using a time based cross validation. 50
-different combinations of hyper parameters were done.
-
-Interestingly, boosting did no better than ridge regression. Roughly,
-training a single boosted model took longer than training 50 ridge
-regression models. If one is will to sacrifice some statistical
-performance, ridge regression is the way to go.
-
-### Deep Learning Models
-
-All deep learning models are tuned on 50 iterations of cross validation
-each. Overall, deep learning is superior to machine learning based
-approaches. NHits, NBeats beat boosting and ridge regression by a wide
-margin. The TFT model matched performance.
 
 # Ecosystem Overview
 
@@ -141,6 +99,39 @@ ML forecast makes use of standard machine learning to build model. It
 includes functions to take a time series data and shape into standard
 tabular data. Then standard regression models including boosting and
 linear regression can be used.
+
+# Model Summary
+
+### Comparison with Other Participates
+
+The first vertical line is 1st place. The second vertical line is 7th
+place. Out of 61 submissions, my best model beat the 7th place model in
+the M4 competition.
+
+![](README_files/figure-commonmark/cell-6-output-1.png)
+
+### Naive Models
+
+Within the competion, the naive model took 41st. The seasonal naive
+model took 37th. I was able to reproduce these results.
+
+### ML Models
+
+AutoRidge and AutoLightGBM are the machine learning models used here.
+Their parameters were tuned using a time based cross validation. 50
+different combinations of hyper parameters were done.
+
+Interestingly, boosting did no better than ridge regression. Roughly,
+training a single boosted model took longer than training 50 ridge
+regression models. If one is will to sacrifice some statistical
+performance, ridge regression is the way to go.
+
+### Deep Learning Models
+
+All deep learning models are tuned on 50 iterations of cross validation
+each. Overall, deep learning is superior to machine learning based
+approaches. NHits, NBeats beat boosting and ridge regression by a wide
+margin. The TFT model matched performance.
 
 # Code Overview
 

@@ -113,23 +113,7 @@ Longer frequency data (yearly) tend to be shorter series than short frequency se
 )
 ```
 
-Hourly and yearly contain a few high average value series.
-
-```{python}
-#| echo: false
-(
-    ggplot(graph_data, aes(x="data", y="avg_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Average Values Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip()
-)
-```
-
-Ignoring the few extreme series, there is some variability in average value of series in most datasets.
+There is some variability in average value of series in most datasets.
 
 ```{python}
 #| echo: false
@@ -145,23 +129,7 @@ Ignoring the few extreme series, there is some variability in average value of s
 )
 ```
 
-A few series have large standard deviation. 
-
-```{python}
-#| echo: false
-(
-    ggplot(graph_data, aes(x="data", y="std_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Standard Deviations Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip()
-)
-```
-
-Removing a few extreme series, there is some variability in standard deviations of series. 
+Within each dataset, there is some variability in standard deviations of series. 
 
 ```{python}
 #| echo: false
@@ -176,6 +144,17 @@ Removing a few extreme series, there is some variability in standard deviations 
     + coord_flip(ylim=[0, 20000])
 )
 ```
+
+# Ecosystem Overview
+The Nixtla ecosystem defines a standard data shape with controlled variable names and provides well over 50 different models that all accept the same exact data. This makes changing between time series models as easy as changing between regression models with sci-kit learn. 
+
+### Neural Forecast
+Neural forecast is a collection of 18 different deep learning models focused specifically focused on time series analysis. They span many categories of neural networks including recurrent neural networks, multi layer perceptrons, transformers, and convolutional neural networks.
+
+A models are implemented with pytorch lightning meaning all models can run on a CPU, a GPU, or multiple GPUs.
+
+### ML Forecast
+ML forecast makes use of standard machine learning to build model. It includes functions to take a time series data and shape into standard tabular data. Then standard regression models including boosting and linear regression can be used. 
 
 # Model Summary
 
@@ -216,17 +195,6 @@ Interestingly, boosting did no better than ridge regression. Roughly, training a
 
 ### Deep Learning Models
 All deep learning models are tuned on 50 iterations of cross validation each.  Overall, deep learning is superior to machine learning based approaches. NHits, NBeats beat boosting and ridge regression by a wide margin. The TFT model matched performance.
-
-# Ecosystem Overview
-The Nixtla ecosystem defines a standard data shape with controlled variable names and provides well over 50 different models that all accept the same exact data. This makes changing between time series models as easy as changing between regression models with sci-kit learn. 
-
-### Neural Forecast
-Neural forecast is a collection of 18 different deep learning models focused specifically focused on time series analysis. They span many categories of neural networks including recurrent neural networks, multi layer perceptrons, transformers, and convolutional neural networks.
-
-A models are implemented with pytorch lightning meaning all models can run on a CPU, a GPU, or multiple GPUs.
-
-### ML Forecast
-ML forecast makes use of standard machine learning to build model. It includes functions to take a time series data and shape into standard tabular data. Then standard regression models including boosting and linear regression can be used. 
 
 # Code Overview
 

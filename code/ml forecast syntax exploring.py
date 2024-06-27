@@ -5,8 +5,7 @@ import numpy as np
 import pandas as pd
 from mlforecast import MLForecast
 from mlforecast.lag_transforms import ExpandingMean, RollingMean
-from mlforecast.target_transforms import (Differences, LocalBoxCox,
-                                          LocalStandardScaler)
+from mlforecast.target_transforms import Differences, LocalBoxCox, LocalStandardScaler
 from mlforecast.utils import generate_daily_series
 from sklearn.linear_model import Ridge
 

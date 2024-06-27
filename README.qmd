@@ -48,6 +48,7 @@ Due to these challenges, I avoid cleaning the data myself. Instead, I leverage n
 ### Data Exploration
 
 ```{python}
+#| echo: false
 import os
 from functools import reduce
 
@@ -99,6 +100,7 @@ graph_data["data"] = graph_data["data"].cat.reorder_categories(
 Longer frequency data (yearly) tend to be shorter series than short frequency series (daily). Within each dataset, the length of the series is inconsistent.
 
 ```{python}
+#| echo: false
 (
     ggplot(graph_data, aes(x="data", y="row_count"))
     + geom_boxplot(alpha=0.40)
@@ -114,6 +116,7 @@ Longer frequency data (yearly) tend to be shorter series than short frequency se
 Hourly and yearly contain a few high average value series.
 
 ```{python}
+#| echo: false
 (
     ggplot(graph_data, aes(x="data", y="avg_value"))
     + geom_boxplot(alpha=0.40)
@@ -129,6 +132,7 @@ Hourly and yearly contain a few high average value series.
 Ignoring the few extreme series, there is some variability in average value of series in most datasets.
 
 ```{python}
+#| echo: false
 (
     ggplot(graph_data, aes(x="data", y="avg_value"))
     + geom_boxplot(alpha=0.40)
@@ -144,6 +148,7 @@ Ignoring the few extreme series, there is some variability in average value of s
 A few series have large standard deviation. 
 
 ```{python}
+#| echo: false
 (
     ggplot(graph_data, aes(x="data", y="std_value"))
     + geom_boxplot(alpha=0.40)
@@ -159,6 +164,7 @@ A few series have large standard deviation.
 Removing a few extreme series, there is some variability in standard deviations of series. 
 
 ```{python}
+#| echo: false
 (
     ggplot(graph_data, aes(x="data", y="std_value"))
     + geom_boxplot(alpha=0.40)
@@ -178,6 +184,7 @@ Removing a few extreme series, there is some variability in standard deviations 
 The first vertical line is 1st place. The second vertical line is 7th place. Out of 61 submissions, my best model beat the 7th place model in the M4 competition.
 
 ```{python}
+#| echo: false
 fn = os.path.join("data", "metrics_df.csv")
 fn = os.path.join(os.getcwd(), fn)
 metric_df = pd.read_csv(fn)

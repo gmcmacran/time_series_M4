@@ -61,141 +61,27 @@ confirm dataset has the correct number of series.
 
 ### Data Exploration
 
-``` python
-import os
-from functools import reduce
-
-import numpy as np
-import pandas as pd
-from plotnine import (aes, coord_flip, geom_boxplot, geom_col, geom_hline,
-                      ggplot, ggsave, labs, scale_y_continuous)
-from mizani.formatters import comma_format
-
-os.chdir("S:\Python\projects\exploration")
-
-def load_data(data_type):
-    if data_type == "hourly":
-        train_file = os.path.join(os.getcwd(), "data\\hourly-train.csv")
-    elif data_type == "daily":
-        train_file = os.path.join(os.getcwd(), "data\\daily-train.csv")
-    elif data_type == "weekly":
-        train_file = os.path.join(os.getcwd(), "data\\weekly-train.csv")
-    elif data_type == "monthly":
-        train_file = os.path.join(os.getcwd(), "data\\monthly-train.csv")
-    elif data_type == "quarterly":
-        train_file = os.path.join(os.getcwd(), "data\\quarterly-train.csv")
-    elif data_type == "yearly":
-        train_file = os.path.join(os.getcwd(), "data\\yearly-train.csv")
-
-    train = pd.read_csv(train_file)
-    train['data'] = data_type
-
-    return train
-
-train_data = map(load_data, ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"])
-train_data = reduce(lambda x, y: pd.concat([x, y]), train_data)
-
-graph_data = (
-    train_data.
-    groupby(['data', 'unique_id'], as_index=False).
-    agg(
-        row_count = ('ds', 'count'),
-        avg_value = ('y', 'mean'),
-        std_value = ('y', 'std')
-    )
-)
-graph_data["data"] = graph_data["data"].astype("category")
-graph_data["data"] = graph_data["data"].cat.reorder_categories(
-    ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
-)
-```
-
 Longer frequency data (yearly) tend to be shorter series than short
 frequency series (daily). Within each dataset, the length of the series
 is inconsistent.
 
-``` python
-(
-    ggplot(graph_data, aes(x="data", y="row_count"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Lengths Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip()
-)
-```
-
 ![](README_files/figure-commonmark/cell-3-output-1.png)
 
 Hourly and yearly contain a few high average value series.
-
-``` python
-(
-    ggplot(graph_data, aes(x="data", y="avg_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Average Values Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip()
-)
-```
 
 ![](README_files/figure-commonmark/cell-4-output-1.png)
 
 Ignoring the few extreme series, there is some variability in average
 value of series in most datasets.
 
-``` python
-(
-    ggplot(graph_data, aes(x="data", y="avg_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Average Values Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip(ylim=[0, 10000])
-)
-```
-
 ![](README_files/figure-commonmark/cell-5-output-1.png)
 
 A few series have large standard deviation.
-
-``` python
-(
-    ggplot(graph_data, aes(x="data", y="std_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Standard Deviations Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip()
-)
-```
 
 ![](README_files/figure-commonmark/cell-6-output-1.png)
 
 Removing a few extreme series, there is some variability in standard
 deviations of series.
-
-``` python
-(
-    ggplot(graph_data, aes(x="data", y="std_value"))
-    + geom_boxplot(alpha=0.40)
-    + labs(
-        x="Data",
-        y="Standard Deviations Of Individual Series",
-    )
-    + scale_y_continuous(labels = comma_format())
-    + coord_flip(ylim=[0, 20000])
-)
-```
 
 ![](README_files/figure-commonmark/cell-7-output-1.png)
 
@@ -206,28 +92,6 @@ deviations of series.
 The first vertical line is 1st place. The second vertical line is 7th
 place. Out of 61 submissions, my best model beat the 7th place model in
 the M4 competition.
-
-``` python
-fn = os.path.join("data", "metrics_df.csv")
-fn = os.path.join(os.getcwd(), fn)
-metric_df = pd.read_csv(fn)
-metric_df["data"] = metric_df["data"].astype("category")
-metric_df["data"] = metric_df["data"].cat.reorder_categories(
-    ["hourly", "daily", "weekly", "monthly", "quarterly", "yearly"]
-)
-del fn
-
-temp = metric_df.groupby("model", as_index=False)["smape"].mean()
-(
-    ggplot(temp, aes(x="model", y="smape"))
-    + geom_col(alpha=0.40)
-    + labs(title="Model Performance", x="Model", y="Average Smape")
-    + geom_hline(yintercept=0.11374) # 1st
-    + geom_hline(yintercept=0.12020) # 7th
-    + scale_y_continuous(breaks=np.arange(0, 0.16, 0.02))
-    + coord_flip()
-)
-```
 
 ![](README_files/figure-commonmark/cell-8-output-1.png)
 

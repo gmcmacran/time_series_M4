@@ -10,6 +10,9 @@ conda install plotnine -n nixtlaEnv  -c conda-forge
 conda install ipykernel -n nixtlaEnv -c conda-forge
 conda install black -n nixtlaEnv -c conda-forge
 conda install isort -n nixtlaEnv -c conda-forge
+conda install nbformat -n nixtlaEnv -c conda-forge
+conda install nbclient -n nixtlaEnv -c conda-forge
+# Plot Interaction of Categorical Factors
 
 conda activate nixtlaEnv 
 pip install datasetsforecast

@@ -13,7 +13,6 @@ competition’s data and builds 7 different models:
 - 37th: Seasonal Naive
 - 41st: Last Value Naive
 
-I was able to reproduce last value naive’s and seasonal naive’s results.
 My best model beat the 7th place submission. My second best model beat
 the 10th place submission.
 
@@ -45,8 +44,9 @@ Data:
 
 Pulling the raw data from the competition page lead to some challenging
 data shaping issues. First, series Y13190 contained 835 years worth of
-data meaning data collection start in year 1,182. Second, series Y3820
-ends in the future. I am not the only person to notice
+data meaning data collection started in year 1,182 at the latest.
+Second, series Y3820 ends in the future. I am not the only person to
+notice
 [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/).
 I was unable to find clear documentation how participates handeled these
 series. It is possible they simple accepted these series as is.
@@ -80,11 +80,11 @@ of series.
 
 # Ecosystem Overview
 
-The Nixtla ecosystem defines a standard data shape with controlled
-variable names and provides well over 50 different models with a unified
-interface. This makes changing between time series models as easy as
-changing between regression models with sci-kit learn. Cross validation
-and a wide variety of metrics are provided.
+The Nixtla ecosystem defines a standardized data shape and provides well
+over 50 different models with a unified interface. This makes changing
+between time series models as easy as changing between regression models
+with sci-kit learn. Cross validation and a wide variety of metrics are
+provided as well.
 
 ### Neural Forecast
 
@@ -99,9 +99,9 @@ a GPU, or multiple GPUs.
 
 ML forecast does not provide new models directly. Instead it provides
 functions to take the standadrized time series data and shape into
-standard tabular data. From there, standard machine learning models are
-used. These models can come from sci-kit learn, xgboost, or any other
-library that follows a sci-kit learn interface.
+tabular data. From there, standard machine learning models are used.
+These models can come from sci-kit learn, xgboost, or any other library
+that follows a sci-kit learn interface.
 
 # Model Summary
 
@@ -123,18 +123,16 @@ and the seasonal naive model.
 Ridge regression and boosting with lightgbm are the machine learning
 models used here. Their parameters were tuned using a time based cross
 validation. 50 different combinations of hyper parameters were done.
-
 Interestingly, boosting did no better than ridge regression. Roughly,
 training a single boosted model takes longer than training 50 ridge
-regression models. If one is willing to sacrifice some statistical
-performance for compute speed, ridge regression is the way to go.
+regression models.
 
 ### Deep Learning Models
 
 All deep learning models are tuned on 50 iterations of cross validation
 each. Overall, deep learning is superior to machine learning based
-approaches. NBeats and NHits beat boosting and ridge regression by a
-wide margin. The TFT model matches performance.
+approaches for these data. NBeats and NHits beat boosting and ridge
+regression by a wide margin. The TFT model matches performance.
 
 # Code Overview
 

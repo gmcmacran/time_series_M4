@@ -49,8 +49,8 @@ meaning data collection started before the printing press was created.
 Second, series Y3820 ends in the future. I am not the only person to
 notice
 [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/).
-I was unable to find clear documentation on how participates handled
-these series. It is possible they simply accepted these series as is.
+I could not find clear documentation on how participates handled these
+series. It is possible they simply accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I
 leverage Nixtla’s dataset
@@ -65,12 +65,12 @@ has the correct number of series.
 ### Data Exploration
 
 Long frequency data (i.e. yearly) tend to be shorter series than short
-frequency series (i.e. daily). Within each dataset, the length of the
+frequency series (i.e. daily). Within each dataset, the length of each
 series is inconsistent.
 
 ![](README_files/figure-commonmark/cell-3-output-1.png)
 
-There is large variability in average value of series in most datasets.
+There is large variability in average values of series in most datasets.
 
 ![](README_files/figure-commonmark/cell-4-output-1.png)
 
@@ -84,8 +84,8 @@ of series.
 The Nixtla ecosystem defines a standardized data shape and provides well
 over 50 different models with a unified interface. This makes changing
 between time series models as easy as changing between regression models
-with sci-kit learn. Cross validation and a wide variety of metrics are
-provided as well.
+with sci-kit learn. Time based cross validation and a wide variety of
+metrics are provided as well.
 
 ### Neural Forecast
 
@@ -108,7 +108,7 @@ follows a sci-kit learn interface.
 
 ### Comparison with Other Participates
 
-The first vertical line is 1st place. The second vertical line is 7th
+The left vertical line is 1st place. The right vertical line is 7th
 place. Out of 61 submissions, my best model beat the 7th place model in
 the M4 competition.
 
@@ -116,16 +116,16 @@ the M4 competition.
 
 ### Naive Models
 
-I was able to reproduce the smape for both the last value naive model
-and the seasonal naive model.
+I am able to reproduce the smape for both the last value naive model and
+the seasonal naive model.
 
 ### ML Models
 
 Ridge regression with sci-kit learn and boosting with lightgbm are the
-machine learning models used here. Their parameters were tuned using a
+machine learning models used here. Their parameters are tuned using a
 time based cross validation. 50 different combinations of hyper
-parameters were done. Interestingly, boosting did no better than ridge
-regression.
+parameters are tried. Interestingly, boosting did slightly worse than
+ridge regression.
 
 Roughly, training a single boosted model takes longer than training 50
 ridge regression models.
@@ -146,8 +146,8 @@ Run order:
   train_ml_models)
 - summarize_results
 
-train_stats_models was not used because code took too long to run.
+train_stats_models is not used because code took too long to run.
 
-Two conda environments were used. Most code runs on nixtlaEnv. The
-nixtlaEnvDeep environment was created to get GPU support for deep
-learning models. Conda commands and environment files are included.
+Two conda environments are used. Most code runs on nixtlaEnv. The
+nixtlaEnvDeep environment is used to get GPU support for deep learning
+models. Conda commands and environment files are included.

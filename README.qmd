@@ -38,7 +38,7 @@ Data:
 -   [Github](https://github.com/Mcompetitions)
 
 ### Cleaning Process
-Pulling the raw data from the competition page lead to challenging data quality issues. First, series Y13190 contained 835 years worth of data meaning data collection started before the printing press was created. Second, series Y3820 ends in the future. I am not the only person to notice [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/). I was unable to find clear documentation on how participates handled these series. It is possible they simply accepted these series as is.
+Pulling the raw data from the competition page lead to challenging data quality issues. First, series Y13190 contained 835 years worth of data meaning data collection started before the printing press was created. Second, series Y3820 ends in the future. I am not the only person to notice [this](https://openforecast.org/2020/03/01/m-competitions-from-m4-to-m5-reservations-and-expectations/). I could not find clear documentation on how participates handled these series. It is possible they simply accepted these series as is.
 
 Due to these challenges, I avoid cleaning the data myself. Instead, I leverage Nixtla's dataset [package](https://nixtlaverse.nixtla.io/datasetsforecast/index.html) which includes a cleaned version of data. I only confirm each dataset has the correct number of series.
 
@@ -98,7 +98,7 @@ graph_data["data"] = graph_data["data"].cat.reorder_categories(
 )
 ```
 
-Long frequency data (i.e. yearly) tend to be shorter series than short frequency series (i.e. daily). Within each dataset, the length of the series is inconsistent.
+Long frequency data (i.e. yearly) tend to be shorter series than short frequency series (i.e. daily). Within each dataset, the length of each series is inconsistent.
 
 ```{python}
 #| echo: false
@@ -114,7 +114,7 @@ Long frequency data (i.e. yearly) tend to be shorter series than short frequency
 )
 ```
 
-There is large variability in average value of series in most datasets.
+There is large variability in average values of series in most datasets.
 
 ```{python}
 #| echo: false
@@ -147,7 +147,7 @@ Within each dataset, there is large variability in standard deviations of series
 ```
 
 # Ecosystem Overview
-The Nixtla ecosystem defines a standardized data shape and provides well over 50 different models with a unified interface. This makes changing between time series models as easy as changing between regression models with sci-kit learn. Cross validation and a wide variety of metrics are provided as well.
+The Nixtla ecosystem defines a standardized data shape and provides well over 50 different models with a unified interface. This makes changing between time series models as easy as changing between regression models with sci-kit learn. Time based cross validation and a wide variety of metrics are provided as well.
 
 ### Neural Forecast
 Neural forecast is a collection of 18 different deep learning models specifically focused on time series analysis. They span many categories including recurrent neural networks, multilayer perceptron, transformers, and convolutional neural networks. All models are implemented with pytorch lightning meaning all models can run on a CPU, a GPU, or multiple GPUs.
@@ -159,7 +159,7 @@ ML forecast does not provide new models directly. Instead it provides functions 
 
 ### Comparison with Other Participates 
 
-The first vertical line is 1st place. The second vertical line is 7th place. Out of 61 submissions, my best model beat the 7th place model in the M4 competition.
+The left vertical line is 1st place. The right vertical line is 7th place. Out of 61 submissions, my best model beat the 7th place model in the M4 competition.
 
 ```{python}
 #| echo: false
@@ -185,10 +185,10 @@ temp = metric_df.groupby("model", as_index=False)["smape"].mean()
 ```
 
 ### Naive Models
-I was able to reproduce the smape for both the last value naive model and the seasonal naive model.
+I am able to reproduce the smape for both the last value naive model and the seasonal naive model.
 
 ### ML Models
-Ridge regression with sci-kit learn and boosting with lightgbm are the machine learning models used here. Their parameters were tuned using a time based cross validation. 50 different combinations of hyper parameters were done. Interestingly, boosting did no better than ridge regression. 
+Ridge regression with sci-kit learn and boosting with lightgbm are the machine learning models used here. Their parameters are tuned using a time based cross validation. 50 different combinations of hyper parameters are tried. Interestingly, boosting did slightly worse than ridge regression. 
 
 Roughly, training a single boosted model takes longer than training 50 ridge regression models.
 
@@ -202,6 +202,6 @@ Run order:
 -   train models (train_baseline_models, train_deep_lerning_models, train_ml_models)
 -   summarize_results
 
-train_stats_models was not used because code took too long to run.
+train_stats_models is not used because code took too long to run.
 
-Two conda environments were used. Most code runs on nixtlaEnv. The nixtlaEnvDeep environment was created to get GPU support for deep learning models. Conda commands and environment files are included.
+Two conda environments are used. Most code runs on nixtlaEnv. The nixtlaEnvDeep environment is used to get GPU support for deep learning models. Conda commands and environment files are included.

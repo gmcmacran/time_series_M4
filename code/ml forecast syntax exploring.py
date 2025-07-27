@@ -1,3 +1,14 @@
+##########################################################
+# Overview
+#
+# A script explore the transformations used by MLForecast.
+# Use nixtlaEnv conda environment.
+#
+#
+# Output:
+# No results are saved. Just exploration.
+##########################################################
+
 # %%
 import os
 

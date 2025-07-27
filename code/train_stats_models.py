@@ -1,8 +1,8 @@
 ##########################################################
 # Overview
 #
-# A script to train three deep learning models for time series
-# on the exploration datasets. Use nixtlaEnv conda environment.
+# A script to train four classic stats models.
+# Use nixtlaEnv conda environment.
 #
 # Output:
 #   A dataframe containing predictions per model per dataset.

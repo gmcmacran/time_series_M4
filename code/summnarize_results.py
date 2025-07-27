@@ -2,7 +2,7 @@
 # Overview
 #
 # Simple script to load predictions and calculate
-# metrics. These metrics are to csvs.
+# metrics. These metrics are saved to csvs.
 ################################################
 
 # %%
